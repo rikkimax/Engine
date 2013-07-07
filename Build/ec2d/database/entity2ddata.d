@@ -4,7 +4,7 @@ version(Engine_2D) {
 	import ec2d.base;
 
 	import dpe.types;
-	import std.stdio;
+
 	class Entity2DData : EngineData {
 		double x;
 		double y;

@@ -10,7 +10,6 @@ version(Engine_2D) {
 
 	import std.parallelism : parallel;
 	import std.concurrency;
-	import std.stdio;
 
 	import core.time : Duration, msecs;
 

@@ -33,6 +33,11 @@
         <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Debug" />
       </CustomCommands>
     </CustomCommands>
+    <VersionIds>
+      <VersionIds>
+        <String>Engine_2D</String>
+      </VersionIds>
+    </VersionIds>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\Release</OutputPath>

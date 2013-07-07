@@ -10,6 +10,9 @@ import std.algorithm : filterBidirectional;
 
 import std.file;
 
+import std.stdio;
+import std.conv;
+
 class LuaManager {
 	private {
 		LuaState luaState;
@@ -46,7 +49,15 @@ class LuaManager {
 		}
 
 		void runLuaFile(string name) {
-			luaL_dostring(luaState.state, (cast(string)AssetManager[name] ~ "\0").ptr);
+			debug {
+				if (luaL_dostring(luaState.state, (cast(string)AssetManager[name] ~ "\0").ptr) == 1) {
+					throw new Exception(to!string(lua_tostring(luaState.state, -1)));
+					lua_pop(luaState.state, 1);
+				}
+			} else {
+				luaL_dostring(luaState.state, (cast(string)AssetManager[name] ~ "\0").ptr);
+				lua_pop(luaState.state, 1);
+			}
 		}
 	}
 

@@ -16,3 +16,4 @@ if isMainThread then
 	print("entry=y 2", e["y"])
 	e:delete()
 end
+ds

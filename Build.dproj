@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{26CA015B-F94B-49E5-B1F2-CFD91FF5DF0E}</ProjectGuid>
+    <PreferOneStepBuild>true</PreferOneStepBuild>
+    <UseDefaultCompiler>true</UseDefaultCompiler>
+    <IncrementalLinking>true</IncrementalLinking>
+    <DependentProjectIds>
+      <DependentProjectIds>
+        <String>{759AE620-EF24-4C16-A409-848E27C1B2AF}</String>
+      </DependentProjectIds>
+    </DependentProjectIds>
+    <Compiler>DMD2</Compiler>
+    <BaseDirectory>Build</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug</OutputPath>
+    <ObjectsDirectory>obj/Debug</ObjectsDirectory>
+    <UnittestMode>false</UnittestMode>
+    <OutputName>Build</OutputName>
+    <Target>Executable</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
+../bin/Debug/liblanes.a</ExtraCompilerArguments>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Debug" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\Release</OutputPath>
+    <Externalconsole>true</Externalconsole>
+    <Target>Executable</Target>
+    <OutputName>Build</OutputName>
+    <UnittestMode>false</UnittestMode>
+    <ObjectsDirectory>obj/Release</ObjectsDirectory>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
+../bin/Debug/liblanes.a</ExtraCompilerArguments>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Release" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Unittest</OutputPath>
+    <ObjectsDirectory>obj/Unittest</ObjectsDirectory>
+    <UnittestMode>true</UnittestMode>
+    <OutputName>Build</OutputName>
+    <Target>Executable</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
+../bin/Debug/liblanes.a</ExtraCompilerArguments>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Unittest" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug</OutputPath>
+    <ObjectsDirectory>obj/Debug</ObjectsDirectory>
+    <UnittestMode>false</UnittestMode>
+    <OutputName>Build</OutputName>
+    <Target>Executable</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
+../bin/Debug/liblanes.a
+-m64</ExtraCompilerArguments>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Debug" />
+      </CustomCommands>
+    </CustomCommands>
+    <VersionIds>
+      <VersionIds>
+        <String>Engine_2D</String>
+      </VersionIds>
+    </VersionIds>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\Release</OutputPath>
+    <Externalconsole>true</Externalconsole>
+    <Target>Executable</Target>
+    <OutputName>Build</OutputName>
+    <UnittestMode>false</UnittestMode>
+    <ObjectsDirectory>obj/Release</ObjectsDirectory>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
+../bin/Release/liblanes.a
+-m64</ExtraCompilerArguments>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Release" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Unittest</OutputPath>
+    <ObjectsDirectory>obj/Unittest</ObjectsDirectory>
+    <UnittestMode>true</UnittestMode>
+    <OutputName>Build</OutputName>
+    <Target>Executable</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
+../bin/Debug/liblanes.a
+-m64</ExtraCompilerArguments>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Unittest" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Build\base\assetmanager.d" />
+    <Compile Include="Build\dpe\base.d" />
+    <Compile Include="Build\dpe\types.d" />
+    <Compile Include="Build\assets.d" />
+    <Compile Include="Build\main.d" />
+    <Compile Include="Build\ec3d\database\base.d" />
+    <Compile Include="Build\ec3d\database\camera.d" />
+    <Compile Include="Build\ec3d\base.d" />
+    <Compile Include="Build\ec2d\base.d" />
+    <Compile Include="Build\ec2d\database\base.d" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Build\ec2d\" />
+    <Folder Include="Build\ec2d\database\" />
+  </ItemGroup>
+</Project>

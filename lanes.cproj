@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{13339D05-CFD3-415D-ACCA-D5E6EEA3948C}</ProjectGuid>
+    <Compiler>
+      <Compiler ctype="GccCompiler" />
+    </Compiler>
+    <Language>C</Language>
+    <Target>Bin</Target>
+    <BaseDirectory>lanes\src</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug</OutputPath>
+    <OutputName>lanes</OutputName>
+    <CompileTarget>StaticLibrary</CompileTarget>
+    <DefineSymbols>DEBUG MONODEVELOP</DefineSymbols>
+    <SourceDirectory>lanes\src</SourceDirectory>
+    <Includes>
+      <Includes>
+        <Include>/usr/include/lua5.1</Include>
+      </Includes>
+    </Includes>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\Release</OutputPath>
+    <OutputName>lanes</OutputName>
+    <CompileTarget>StaticLibrary</CompileTarget>
+    <OptimizationLevel>3</OptimizationLevel>
+    <DefineSymbols>MONODEVELOP</DefineSymbols>
+    <SourceDirectory>.</SourceDirectory>
+    <Includes>
+      <Includes>
+        <Include>/usr/include/lua5.1</Include>
+      </Includes>
+    </Includes>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug</OutputPath>
+    <OutputName>lanes</OutputName>
+    <CompileTarget>StaticLibrary</CompileTarget>
+    <DefineSymbols>DEBUG MONODEVELOP</DefineSymbols>
+    <SourceDirectory>lanes\src</SourceDirectory>
+    <Includes>
+      <Includes>
+        <Include>/usr/include/lua5.1</Include>
+      </Includes>
+    </Includes>
+    <ExtraCompilerArguments>-m64</ExtraCompilerArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\Release</OutputPath>
+    <OutputName>lanes</OutputName>
+    <CompileTarget>StaticLibrary</CompileTarget>
+    <OptimizationLevel>3</OptimizationLevel>
+    <DefineSymbols>MONODEVELOP</DefineSymbols>
+    <SourceDirectory>lanes\src</SourceDirectory>
+    <Includes>
+      <Includes>
+        <Include>/usr/include/lua5.1</Include>
+      </Includes>
+    </Includes>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lanes\src\deep.h" />
+    <None Include="lanes\src\keeper.h" />
+    <None Include="lanes\src\lanes.h" />
+    <None Include="lanes\src\threading.h" />
+    <None Include="lanes\src\tools.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="lanes\src\keeper.c" />
+    <Compile Include="lanes\src\lanes.c" />
+    <Compile Include="lanes\src\threading.c" />
+    <Compile Include="lanes\src\tools.c" />
+  </ItemGroup>
+</Project>

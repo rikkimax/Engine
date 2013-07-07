@@ -23,8 +23,6 @@ class LuaManager {
 	}
 
 	this(bool mainThread = false) {
-		graphicsTid = locate(GraphicsThreadName);
-
 		luaState = new LuaState();
 		luaState.openLibs();
 
@@ -60,32 +58,6 @@ class LuaManager {
 }
 
 private {
-	__gshared Tid graphicsTid;
-
-	void changeEntity(uint entity, uint id, string valueId, LuaTypesVariant value) {
-		synchronized {
-			send(cast()graphicsTid, ThreadReceiveTypes.ModifyEntity, entity, id, valueId, value);
-		}
-	}
-	
-	LuaTypesVariant getEntity(uint entity, uint id, string valueId) {
-		synchronized {
-			return getEntityData(entity, id, valueId);
-		}
-	}
-	
-	void deleteEntity(uint entity, uint id) {
-		synchronized {
-			send(cast()graphicsTid, ThreadReceiveTypes.DeleteEntity, entity, id);
-		}
-	}
-	
-	void createEntity(uint entity, uint id) {
-		synchronized {
-			send(cast()graphicsTid, ThreadReceiveTypes.CreateEntity, entity, id);
-		}
-	}
-
 	void luaopen_base_engine(LuaManager manager) {
 		with(manager) {
 			debug {
@@ -97,7 +69,7 @@ private {
 			luaState["changeEntity"] = &changeEntity;
 			luaState["deleteEntity"] = &deleteEntity;
 			luaState["createEntity"] = &createEntity;
-			luaState["getEntity"] = &getEntity;
+			luaState["getEntityData"] = &getEntityData;
 			luaState["runLuaFile"] = &runLuaFile;
 
 			runLuaFile("base_lua");
@@ -132,5 +104,8 @@ extern(C) {
 		return 1;
 	}
 
+	void changeEntity(uint entity, uint id, string valueId, LuaTypesVariant value);
+	void deleteEntity(uint entity, uint id);
+	void createEntity(uint entity, uint id);
 	LuaTypesVariant getEntityData(uint entity, uint id, string valueId);
 }

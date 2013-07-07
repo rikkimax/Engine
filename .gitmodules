@@ -4,3 +4,6 @@
 [submodule "lanes"]
 	path = lanes
 	url = git@github.com:rikkimax/lanes.git
+[submodule "DAllegro5"]
+	path = DAllegro5
+	url = git@github.com:SiegeLord/DAllegro5.git

@@ -11,8 +11,16 @@ end
 loadFilesLogic = function(files)
 	if DEBUG then printTable(files, "base=loadFilesLogic called with") end
 	files2 = {}
+	-- make sure all base files are done first
 	for i = 1, #files do
-		runLuaFile(files[i])
+		if string.sub(files[i], 0, 5) == "base_" then
+			runLuaFile(files[i])
+		else
+			files2[#files2] = files[i]
+		end
+	end
+	for i = 1, #files2 do
+		runLuaFile(files2[i])
 	end
 end
 
@@ -30,7 +38,7 @@ if DEBUG then print("base=lua loaded") end
 function tableDeepCopy(orig)
     local orig_type = type(orig)
     local copy
-    if orig_type == 'table' then
+    if type(orig_type) == 'table' then
         copy = {}
         for orig_key, orig_value in next, orig, nil do
             copy[tableDeepCopy(orig_key)] = tableDeepCopy(orig_value)
@@ -44,7 +52,7 @@ end
 
 -- Copy a table deeply and values while printing out its value.
 function printTable(orig, msg, level)
-	print(msg)
+	if msg ~= nil then print(msg) end
     local orig_type = type(orig)
     local copy
     if level == nil then

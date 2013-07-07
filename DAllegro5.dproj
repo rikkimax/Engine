@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ED517C90-64A0-4B9C-A0AB-546078D54100}</ProjectGuid>
+    <BaseDirectory>DAllegro5\allegro5</BaseDirectory>
+    <PreferOneStepBuild>true</PreferOneStepBuild>
+    <UseDefaultCompiler>true</UseDefaultCompiler>
+    <IncrementalLinking>true</IncrementalLinking>
+    <Compiler>DMD2</Compiler>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug</OutputPath>
+    <ObjectsDirectory>obj/Debug</ObjectsDirectory>
+    <UnittestMode>false</UnittestMode>
+    <OutputName>DAllegro5</OutputName>
+    <Target>StaticLibrary</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\Release</OutputPath>
+    <Externalconsole>true</Externalconsole>
+    <Target>StaticLibrary</Target>
+    <OutputName>DAllegro5</OutputName>
+    <UnittestMode>false</UnittestMode>
+    <ObjectsDirectory>obj/Release</ObjectsDirectory>
+    <DebugLevel>0</DebugLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Unittest</OutputPath>
+    <ObjectsDirectory>obj/Unittest</ObjectsDirectory>
+    <UnittestMode>true</UnittestMode>
+    <OutputName>DAllegro5</OutputName>
+    <Target>StaticLibrary</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug</OutputPath>
+    <ObjectsDirectory>obj/Debug</ObjectsDirectory>
+    <UnittestMode>false</UnittestMode>
+    <OutputName>DAllegro5</OutputName>
+    <Target>StaticLibrary</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>-m64</ExtraCompilerArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\Release</OutputPath>
+    <Externalconsole>true</Externalconsole>
+    <Target>StaticLibrary</Target>
+    <OutputName>DAllegro5</OutputName>
+    <UnittestMode>false</UnittestMode>
+    <ObjectsDirectory>obj/Release</ObjectsDirectory>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>-m64</ExtraCompilerArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Unittest</OutputPath>
+    <ObjectsDirectory>obj/Unittest</ObjectsDirectory>
+    <UnittestMode>true</UnittestMode>
+    <OutputName>DAllegro5</OutputName>
+    <Target>StaticLibrary</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+    <ExtraCompilerArguments>-m64</ExtraCompilerArguments>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAllegro5\allegro5\internal\da5.d" />
+    <Compile Include="DAllegro5\allegro5\internal\events.d" />
+    <Compile Include="DAllegro5\allegro5\al_debug.d" />
+    <Compile Include="DAllegro5\allegro5\allegro.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_acodec.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_audio.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_color.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_color_ret.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_font.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_image.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_memfile.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_native_dialog.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_physfs.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_primitives.d" />
+    <Compile Include="DAllegro5\allegro5\allegro_ttf.d" />
+    <Compile Include="DAllegro5\allegro5\altime.d" />
+    <Compile Include="DAllegro5\allegro5\base.d" />
+    <Compile Include="DAllegro5\allegro5\bitmap.d" />
+    <Compile Include="DAllegro5\allegro5\bitmap_draw.d" />
+    <Compile Include="DAllegro5\allegro5\bitmap_io.d" />
+    <Compile Include="DAllegro5\allegro5\bitmap_lock.d" />
+    <Compile Include="DAllegro5\allegro5\blender.d" />
+    <Compile Include="DAllegro5\allegro5\color.d" />
+    <Compile Include="DAllegro5\allegro5\color_ret.d" />
+    <Compile Include="DAllegro5\allegro5\config.d" />
+    <Compile Include="DAllegro5\allegro5\d_util.d" />
+    <Compile Include="DAllegro5\allegro5\display.d" />
+    <Compile Include="DAllegro5\allegro5\drawing.d" />
+    <Compile Include="DAllegro5\allegro5\error.d" />
+    <Compile Include="DAllegro5\allegro5\events.d" />
+    <Compile Include="DAllegro5\allegro5\file.d" />
+    <Compile Include="DAllegro5\allegro5\fixed.d" />
+    <Compile Include="DAllegro5\allegro5\fshook.d" />
+    <Compile Include="DAllegro5\allegro5\fullscreen_mode.d" />
+    <Compile Include="DAllegro5\allegro5\joystick.d" />
+    <Compile Include="DAllegro5\allegro5\keyboard.d" />
+    <Compile Include="DAllegro5\allegro5\keycodes.d" />
+    <Compile Include="DAllegro5\allegro5\memory.d" />
+    <Compile Include="DAllegro5\allegro5\monitor.d" />
+    <Compile Include="DAllegro5\allegro5\mouse.d" />
+    <Compile Include="DAllegro5\allegro5\mouse_cursor.d" />
+    <Compile Include="DAllegro5\allegro5\path.d" />
+    <Compile Include="DAllegro5\allegro5\system.d" />
+    <Compile Include="DAllegro5\allegro5\threads.d" />
+    <Compile Include="DAllegro5\allegro5\timer.d" />
+    <Compile Include="DAllegro5\allegro5\tls.d" />
+    <Compile Include="DAllegro5\allegro5\transformations.d" />
+    <Compile Include="DAllegro5\allegro5\utf8.d" />
+  </ItemGroup>
+</Project>

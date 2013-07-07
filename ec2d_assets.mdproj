@@ -7,9 +7,12 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A311015C-CA62-49F5-A3BE-E86B62F00C84}</ProjectGuid>
-    <BaseDirectory>..\Build\assets\ec2d</BaseDirectory>
+    <BaseDirectory>Build\assets\ec2d</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
     <OutputPath>.</OutputPath>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="Build\assets\ec2d\base_2d.lua" />
+  </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ public import luad.base : Nil;
 
 const string GraphicsThreadName = "GraphicsThreadName";
 
-alias Algebraic!(float, uint, int, string, bool, Nil) LuaTypesVariant;
+alias Algebraic!(double, uint, int, string, bool, Nil) LuaTypesVariant;
 
 enum ThreadReceiveTypes {
 	CreateEntity,

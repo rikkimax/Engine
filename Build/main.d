@@ -28,18 +28,7 @@ version(Engine_3D) {
 		LuaManager ldf = new LuaManager(true);
 		ldf.iterateEngines();
 
-		writeln("before lua: ", getEntities());
-
-		bool last = true;
-		while (last) {
-			last = entityThreadListen();
-			if (getEntities().length > 0) {
-				writeln("after lua: ", getEntities());
-				foreach(en; getEntities()) {
-					writeln("after lua: ", en.get("id"), ": ", en.get("x"));
-				}
-			}
-		}
+		writeln("entities: ", getEntities());
 	}
 } else version(Engine_2D) {
 
@@ -55,15 +44,6 @@ version(Engine_3D) {
 		LuaManager ldf = new LuaManager(true);
 		ldf.iterateEngines();
 
-		bool last = true;
-		while (last) {
-			last = entityThreadListen();
-			if (getEntities().length > 0) {
-				writeln("after lua: ", getEntities());
-				foreach(en; getEntities()) {
-					writeln("after lua: ", en.get("id"), ": ", en.get("x"));
-				}
-			}
-		}
+		writeln("entities: ", getEntities());
 	}
 }

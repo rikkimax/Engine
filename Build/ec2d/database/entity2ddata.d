@@ -1,23 +1,21 @@
-module ec3d.database.camera;
-version(Engine_3D) {
+module ec2d.database.entity2ddata;
+version(Engine_2D) {
 
-	import ec3d.base;
+	import ec2d.base;
 
 	import dpe.types;
-
-	class CameraData : EngineData {
+	import std.stdio;
+	class Entity2DData : EngineData {
 		double x;
 		double y;
-		double z;
 		double width;
 		double height;
-		double length;
-		double rotation;
+		string image;
 
-		this(uint id) {
-			super(id, EntityDataTypes.Camera);
+		this(uint id, uint entity = EntityDataTypes.Entity2DData) {
+			super(id, entity);
 		}
-
+		
 		protected {
 			override void setSpecial(string name, LuaTypesVariant value) {
 				switch(name) {
@@ -27,20 +25,14 @@ version(Engine_3D) {
 					case "y":
 						y = value.get!(double);
 						break;
-					case "z":
-						z = value.get!(double);
-						break;
 					case "width":
 						width = value.get!(double);
 						break;
 					case "height":
 						height = value.get!(double);
 						break;
-					case "length":
-						length = value.get!(double);
-						break;
-					case "rotation":
-						rotation = value.get!(double);
+					case "image":
+						image = value.get!(string);
 						break;
 					default:
 						break;
@@ -55,20 +47,14 @@ version(Engine_3D) {
 					case "y":
 						return LuaTypesVariant(y);
 						break;
-					case "z":
-						return LuaTypesVariant(z);
-						break;
 					case "width":
 						return LuaTypesVariant(width);
 						break;
 					case "height":
 						return LuaTypesVariant(height);
 						break;
-					case "length":
-						return LuaTypesVariant(length);
-						break;
-					case "rotation":
-						return LuaTypesVariant(rotation);
+					case "image":
+						return LuaTypesVariant(image);
 						break;
 					default:
 						return LuaTypesVariant(Nil.init);

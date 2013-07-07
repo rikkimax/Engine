@@ -2,6 +2,7 @@ module ec2d.base;
 version(Engine_2D) {
 
 	enum EntityDataTypes : uint {
-		Null
+		Null,
+		Entity2DData
 	}
 }

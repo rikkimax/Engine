@@ -43,5 +43,6 @@
   <ItemGroup>
     <Compile Include="Build\ec2d\database\base.d" />
     <Compile Include="Build\ec2d\base.d" />
+    <Compile Include="Build\ec2d\database\entity2ddata.d" />
   </ItemGroup>
 </Project>

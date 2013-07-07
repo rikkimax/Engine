@@ -141,6 +141,7 @@
     <Compile Include="Build\ec3d\base.d" />
     <Compile Include="Build\ec2d\base.d" />
     <Compile Include="Build\ec2d\database\base.d" />
+    <Compile Include="Build\ec2d\database\entity2ddata.d" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Build\ec2d\" />

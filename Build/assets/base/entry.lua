@@ -1,9 +1,11 @@
-print("entry=booting lua")
+if DEBUG then print("entry=booting lua") end
 
 local lanes = require "lanes".configure()
 local linda = lanes.linda()
 
-print("entry=booted lua")
+if DEBUG then print("entry=Powering engine types", "Engine_3D: " .. tostring(Engine_3D), "Engine_2D: " .. tostring(Engine_2D)) end
+
+if DEBUG then print("entry=booted lua") end
 
 if isMainThread then
 	-- can now run everything to boot it

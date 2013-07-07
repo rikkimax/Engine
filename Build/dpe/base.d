@@ -66,6 +66,17 @@ private {
 				luaState["DEBUG"] = false;
 			}
 
+			version(Engine_2D) {
+				luaState["Engine_2D"] = true;
+				luaState["Engine_3D"] = false;
+			} else version(Engine_3D) {
+				luaState["Engine_3D"] = true;
+				luaState["Engine_2D"] = false;
+			} else {
+				luaState["Engine_3D"] = false;
+				luaState["Engine_2D"] = false;
+			}
+
 			luaState["changeEntity"] = &changeEntity;
 			luaState["deleteEntity"] = &deleteEntity;
 			luaState["createEntity"] = &createEntity;

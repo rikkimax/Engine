@@ -1,0 +1,6 @@
+[submodule "LuaD"]
+	path = LuaD
+	url = git@github.com:jakobovrum/LuaD.git
+[submodule "lanes"]
+	path = lanes
+	url = git@github.com:rikkimax/lanes.git

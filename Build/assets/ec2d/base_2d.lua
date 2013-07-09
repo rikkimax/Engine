@@ -66,8 +66,10 @@ EntityDataModelsMetaData = {
 		end,
 		__newindex = function(t, k, v)
 			if type(t.info[k]) == type(v) and v ~= nil then
+				inact(t.type, t.id, k, t[k], v)
 				changeEntity(t.type, t.id, k, v)
 			else
+				inact(t.type, t.id, k, nil, t.info[k])
 				changeEntity(t.type, t.id, k, t.info[k])
 			end
 		end

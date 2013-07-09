@@ -1,4 +1,11 @@
-DEBUG = true
+DEBUG = false
+
+if isMainThread then
+	lanes = require "lanes".configure()
+	actionsLinda = lanes.linda()
+	interactionsLinda = lanes.linda()
+	inactionsLinda = lanes.linda()
+end
 
 if DEBUG then print("base=lua start loading") end
 
@@ -21,6 +28,13 @@ loadFilesLogic = function(files)
 	end
 	for i = 1, #files2 do
 		runLuaFile(files2[i])
+	end
+end
+
+function basePostLoad()
+	if not isMainThread then
+		if DEBUG then print("base=ERROR called basePostLoad on non main thread") end
+		return
 	end
 end
 

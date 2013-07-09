@@ -1,11 +1,13 @@
 module dpe.types;
 
 import std.variant : Algebraic;
-public import luad.base : Nil;
+public import luad.base : Nil, LuaObject;
+public import luad.lfunction : LuaFunction;
+public import luad.table : LuaTable;
 
 const string GraphicsThreadName = "GraphicsThreadName";
 
-alias Algebraic!(double, uint, int, string, bool, Nil) LuaTypesVariant;
+alias Algebraic!(double, uint, int, string, bool, Nil, LuaTable, LuaFunction, LuaObject) LuaTypesVariant;
 
 enum ThreadReceiveTypes {
 	CreateEntity,

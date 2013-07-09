@@ -16,5 +16,6 @@
     <None Include="Build\assets\base\base.lua" />
     <None Include="Build\assets\base\entry.lua" />
     <None Include="Build\assets\base\lanes.lua" />
+    <None Include="Build\assets\base\base_entities.lua" />
   </ItemGroup>
 </Project>

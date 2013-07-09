@@ -18,14 +18,20 @@ class LuaManager {
 		LuaState luaState;
 
 		string[] luaFileNames;
+
+		bool isMainThread;
 	}
 
 	this(lua_State* state, bool mainThread = false) {
+		isMainThread = mainThread;
+
 		luaState = new LuaState(state);
 		luaState.doString("if isMainThread == nil then isMainThread = " ~ (mainThread ? "true" : "false") ~ " end");
 	}
 
 	this(bool mainThread = false) {
+		isMainThread = mainThread;
+
 		luaState = new LuaState();
 		luaState.openLibs();
 
@@ -65,6 +71,12 @@ class LuaManager {
 		void loadFilesLogic(string[] names...) {
 			luaState.get!LuaFunction("loadFilesLogic")(names);
 		}
+
+		void basePostLoad() {
+			if (isMainThread) {
+				luaState.get!LuaFunction("basePostLoad")();
+			}
+		}
 	}
 }
 
@@ -102,6 +114,8 @@ private {
 				filesToRun ~= file;
 			}
 			loadFilesLogic(filesToRun);
+
+			basePostLoad();
 		}
 	}
 

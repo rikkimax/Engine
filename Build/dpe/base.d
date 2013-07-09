@@ -40,7 +40,8 @@ class LuaManager {
 
 		luaState["isMainThread"] = mainThread;
 
-		luaopen_base_engine(this);
+		open();
+		luaState["load_base_lua"] = &open;
 
 		runLuaFile("entry_lua");
 	}
@@ -68,6 +69,10 @@ class LuaManager {
 	}
 
 	private {
+		void open() {
+			luaopen_base_engine(this);
+		}
+
 		void loadFilesLogic(string[] names...) {
 			luaState.get!LuaFunction("loadFilesLogic")(names);
 		}

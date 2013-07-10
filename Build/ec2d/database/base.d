@@ -11,44 +11,28 @@ version(Engine_2D) {
 
 	import core.time : Duration, msecs;
 
-	private {
-		__gshared EngineData[] entities;
+	private{
+		//entities[type][id]
+		__gshared EngineData[uint][uint] entities;
 	}
 
-	EngineData[] getEntities() {
+	EngineData[uint][uint] getEntities() {
 		return entities;
 	}
 
 	extern(C) {
 		void changeEntity(uint entity, uint id, string valueId, LuaTypesVariant value) {
 			synchronized {
-				foreach(e; entities) {
-					if (e.get("id") == id && e.get("type") == entity) {
-						e.set(valueId, value);
-						return;
-					}
+				EngineData ed = entities.get(entity, cast(EngineData[uint])null).get(id, null);
+				if (!(ed is null)) {
+					ed.set(valueId, value);
 				}
 			}
 		}
 
 		void deleteEntity(uint entity, uint id) {
 			synchronized {
-				uint index;
-				bool did = false;
-				foreach(i, ref e; parallel(entities)) {
-					if (!did)
-						if (e.get("id") == id && e.get("type") == entity) {
-							index = cast(uint)i;
-							did = true;
-							//break; // cannot break out of a parallel loop bug in concurrency
-						}
-				}
-				if (did) {
-					if (entities.length > index + 1)
-						entities = entities[0 .. index] ~ entities[index + 1 .. $];
-					else
-						entities.length--;
-				}
+				entities.get(entity, cast(EngineData[uint])null).remove(id);
 			}
 		}
 
@@ -56,10 +40,10 @@ version(Engine_2D) {
 			synchronized {
 				switch(entity) {
 					case EntityDataTypes.Null:
-						entities ~= new EngineDataDefault(id, entity);
+						entities[entity][id] = new EngineDataDefault(id, entity);
 						break;
 					default:
-						entities ~= new Entity2DData(id, entity);
+						entities[entity][id] = new Entity2DData(id, entity);
 						break;
 				}
 			}
@@ -67,10 +51,9 @@ version(Engine_2D) {
 
 		LuaTypesVariant getEntityData(uint entity, uint id, string valueId) {
 			synchronized {
-				foreach(e; entities) {
-					if (e.get("id") == id && e.get("type") == entity) {
-						return e.get(valueId);
-					}
+				EngineData ed = entities.get(entity, cast(EngineData[uint])null).get(id, null);
+				if (!(ed is null)) {
+					return ed.get(valueId);
 				}
 				return LuaTypesVariant(Nil.init);
 			}

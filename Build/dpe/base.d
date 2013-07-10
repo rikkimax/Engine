@@ -13,8 +13,6 @@ import std.file;
 import std.stdio;
 import std.conv;
 
-import core.memory;
-
 private {
 	__gshared LuaState*[] pastLuaStates;
 }

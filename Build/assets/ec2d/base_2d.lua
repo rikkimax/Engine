@@ -1,8 +1,10 @@
 if DEBUG then print("base_2d=here") end
 
 EntityDataTypes = {
+	-- D side models
 	["Null"] = 0,
-	["Entity2DData"] = 1
+	["Entity2DData"] = 1,
+	-- Lua side models that are on D side another
 }
 
 EDT = EntityDataTypes
@@ -10,6 +12,12 @@ EDT = EntityDataTypes
 if DEBUG then print("base_2d=Entity data types") end
 
 EntityDataModels = {
+	[EDT.Null] = {
+		id = -1,
+		type = EDT.Null,
+		info = {
+		}
+	},
 	[EDT.Entity2DData] = {
 		-- D and lua need this don't change once init'd
 		id = -1,
@@ -30,6 +38,27 @@ EntityDataModels = {
 EDM = EntityDataModels
 
 if DEBUG then print("base_2d=Entity data models") end
+
+EDM[EDT.Null]["new"] = function(id)
+	if DEBUG then print("base_2d=New entity null") end
+	local ret = tableDeepCopy(EntityDataModels[EDT.Null])
+	
+	if not type(id) == "number" then
+		return nil
+	end
+	ret.id = math.ceil(id)
+	
+	createEntity(ret.type, ret.id)
+	
+	if DEBUG then print("base_2d=created entity") end
+	
+	if DEBUG then print("base_2d=set vars") end
+	return ret
+end
+
+EDM[EDT.Null]["delete"] = function(self)
+	deleteEntity(self.type, self.id)
+end
 
 EDM[EDT.Entity2DData]["new"] = function(id, x, y, width, height, image, enabled)
 	if DEBUG then print("base_2d=New entity 2d data") end
@@ -78,6 +107,7 @@ EntityDataModelsMetaData = {
 
 EDMMD = EntityDataModelsMetaData
 
+setmetatable(EDM[EDT.Null], EDMMD[EDT.Null])
 setmetatable(EDM[EDT.Entity2DData], EDMMD[EDT.Entity2DData])
 
 if DEBUG then print("base_2d=Entity data models meta data") end

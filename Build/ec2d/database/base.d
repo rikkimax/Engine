@@ -1,8 +1,6 @@
 module ec2d.database.base;
 version(Engine_2D) {
 
-	//import ec3d.database.camera;
-
 	import ec2d.database.entity2ddata;
 	import ec2d.base;
 
@@ -57,9 +55,9 @@ version(Engine_2D) {
 		void createEntity(uint entity, uint id) {
 			synchronized {
 				switch(entity) {
-					//case EntityDataTypes.Camera:
-					//	entities ~= new CameraData(id);
-					//	break;
+					case EntityDataTypes.Null:
+						entities ~= new EngineDataDefault(id, entity);
+						break;
 					default:
 						entities ~= new Entity2DData(id, entity);
 						break;

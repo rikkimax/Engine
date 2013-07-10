@@ -1,7 +1,7 @@
 DEBUG = false
 
 if isMainThread then
-	lanes = require "lanes".configure()
+	lanes = require "lanes".configure({on_state_create = load_base_lua})
 	actionsLinda = lanes.linda()
 	interactionsLinda = lanes.linda()
 	inactionsLinda = lanes.linda()
@@ -64,11 +64,7 @@ function tableDeepCopy(orig)
     return copy
 end
 
--- Copy a table deeply and values while printing out its value.
 function printTable(orig, msg, level)
-	if msg ~= nil then print(msg) end
-    local orig_type = type(orig)
-    local copy
     if level == nil then
     	level = 0
     end
@@ -76,18 +72,16 @@ function printTable(orig, msg, level)
     for i=1, level do
     	levelValue = levelValue .. "\t"
     end
-    if orig_type == 'table' then
-        copy = {}
-        for orig_key, orig_value in next, orig, nil do
-            if type(orig_value) ~= 'table' then
-            	print(levelValue .. orig_key .. ":", orig_value)
-            else
-            	print(levelValue .. orig_key .. ":", orig_value)
-            end
-            copy[printTable(orig_key, nil, level+1)] = printTable(orig_value, nil, level+1)
-        end
-    else -- number, string, boolean, etc
-        copy = orig
+    if msg ~= nil then print(levelValue .. tostring(msg)) end
+    for k, v in pairs(orig) do
+    	if type(v) ~= "table" then
+    		print(levelValue .. k .. " = " .. tostring(v))
+    	end
     end
-    return copy
+    for k, v in pairs(orig) do
+    	if type(v) == "table" and not k == "_G" then
+    		print(levelValue .. k)
+    		printTable(v, nil, level + 1)
+    	end
+    end
 end

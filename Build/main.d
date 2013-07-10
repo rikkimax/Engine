@@ -44,6 +44,8 @@ version(Engine_3D) {
 		LuaManager ldf = new LuaManager(true);
 		ldf.iterateEngines();
 
+		writeln("Press enter when lua operations is finished");
+		readln();
 		writeln("entities: ", getEntities());
 	}
 }

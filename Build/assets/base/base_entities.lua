@@ -1,11 +1,3 @@
-if isMainThread then
-	--local lanes = lanes
-
-	local actionsLinda = actionsLinda
-	local interactionsLinda = interactionsLinda
-	local inactionsLinda = inactionsLinda
-end
-
 entities = {}
 
 -- required for entities to work
@@ -35,10 +27,26 @@ end
 
 local function actionController()
 	-- controller for actions
+	while(true) do
+		local key, val = actionsLinda:receive(nil, "controller")
+		local key2, val2 = actionsLinda:receive(nil, "done")
+		-- do we need to do some modifications of the data given to the controller?
+		-- or get more info?
+		actionsLinda:send(val2, val)
+	end
 end
 
-local function actionWorker()
+local function actionWorker(id)
 	-- a worker for actions
+	id = tostring(id)
+	actionsLinda:send("done", id)
+	while(true) do
+		local key, val = actionsLinda:receive(nil, id)
+		-- do the task at hand
+		print("received")
+		createEntity(1, 8)
+		actionsLinda:send("done", id)
+	end
 end
 
 interactions = {}
@@ -61,10 +69,23 @@ end
 
 local function interactController()
 	-- controller for interactions
+	while(true) do
+		local key, val = interactionsLinda:receive(nil, "controller")
+		local key2, val2 = interactionsLinda:receive(nil, "done")
+		-- do we need to do some modifications of the data given to the controller?
+		-- or get more info?
+		interactionsLinda:send(val2, val)
+	end
 end
 
 local function interactWorker()
 	-- a worker for actions
+	interactionsLinda:send("done", id)
+	while(true) do
+		local key, val = interactionsLinda:receive(nil, id)
+		-- do the task at hand
+		interactionsLinda:send("done", id)
+	end
 end
 
 inactions = {}
@@ -86,26 +107,52 @@ end
 
 local function inactionController()
 	-- controller for inactions
+	while(true) do
+		local key, val = inactionsLinda:receive(nil, "controller")
+		local key2, val2 = inactionsLinda:receive(nil, "done")
+		-- do we need to do some modifications of the data given to the controller?
+		-- or get more info?
+		inactionsLinda:send(val2, val)
+	end
 end
 
 local function inactionWorker()
 	-- a worker for actions
+	inactionsLinda:send("done", id)
+	while(true) do
+		local key, val = inactionsLinda:receive(nil, id)
+		-- do the task at hand
+		inactionsLinda:send("done", id)
+	end
 end
 
 if isMainThread then
+	-- somethings are just not copied to the new threads
+	-- place them into here
+	local globals = {
+		globals = {
+			actionsLinda = actionsLinda,
+			interactionsLinda = interactionsLinda,
+			inactionsLinda = inactionsLinda,
+			printTable = printTable
+		}
+	}
+
 	-- generate the controller threads
-	lanes.gen("*", {on_state_create = load_base_lua}, actionController)()
-	lanes.gen("*", {on_state_create = load_base_lua}, interactController)()
-	lanes.gen("*", {on_state_create = load_base_lua}, inactionController)()
+	lanes.gen("*", globals, actionController)()
+	lanes.gen("*", globals, interactController)()
+	lanes.gen("*", globals, inactionController)()
 
 	-- generate the worker threads
-	for i = 0, 9 do
+	for i = 1, 100 do
 		-- generate all the workers
 		-- for each linda
-		lanes.gen("*", {on_state_create = load_base_lua}, actionWorker)()
-		lanes.gen("*", {on_state_create = load_base_lua}, interactWorker)()
-		lanes.gen("*", {on_state_create = load_base_lua}, inactionWorker)()
+		lanes.gen("*", globals, actionWorker)(i)
+		lanes.gen("*", globals, interactWorker)(i)
+		lanes.gen("*", globals, inactionWorker)(i)
 	end
+
+	act("TestEntity", 7, "saying hi")
 end
 
 -- remember to copy the lindas to make it visible in the new thread

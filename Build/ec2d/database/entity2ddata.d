@@ -5,7 +5,13 @@ version(Engine_2D) {
 
 	import dpe.types;
 
+	import std.variant : VariantException;
+	debug {
+		import std.stdio;
+	}
+
 	class Entity2DData : EngineData {
+		bool enabled;
 		double x;
 		double y;
 		double width;
@@ -18,29 +24,41 @@ version(Engine_2D) {
 		
 		protected {
 			override void setSpecial(string name, LuaTypesVariant value) {
-				switch(name) {
-					case "x":
-						x = value.get!(double);
-						break;
-					case "y":
-						y = value.get!(double);
-						break;
-					case "width":
-						width = value.get!(double);
-						break;
-					case "height":
-						height = value.get!(double);
-						break;
-					case "image":
-						image = value.get!(string);
-						break;
-					default:
-						break;
+				try {
+					switch(name) {
+						case "enabled":
+							enabled = value.get!(bool);
+							break;
+						case "x":
+							x = value.get!(double);
+							break;
+						case "y":
+							y = value.get!(double);
+							break;
+						case "width":
+							width = value.get!(double);
+							break;
+						case "height":
+							height = value.get!(double);
+							break;
+						case "image":
+							image = value.get!(string);
+							break;
+						default:
+							break;
+					}
+				} catch (VariantException ve) {
+					debug {
+						writeln(ve);
+					}
 				}
 			}
 			
 			override LuaTypesVariant getSpecial(string name) {
 				switch(name) {
+					case "enabled":
+						return LuaTypesVariant(enabled);
+						break;
 					case "x":
 						return LuaTypesVariant(x);
 						break;

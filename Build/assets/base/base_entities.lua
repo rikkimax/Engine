@@ -13,8 +13,10 @@ actions = {}
 -- the action in the function is a complete one with any paramaters for it required
 actionsRequires = {
 	["type"] = {
-		["action"] = function(id, action)
-		end
+		{function(id, action)
+			-- is this the action?
+			-- process the action
+		end}
 	}
 }
 
@@ -43,8 +45,9 @@ local function actionWorker(id)
 	while(true) do
 		local key, val = actionsLinda:receive(nil, id)
 		-- do the task at hand
-		print("received")
-		createEntity(1, 8)
+		for k, v in pairs(actions[val[1]]) do
+			v(val[2], val[3])
+		end
 		actionsLinda:send("done", id)
 	end
 end
@@ -56,8 +59,10 @@ interactions = {}
 -- the action in the function is a complete one with any paramaters for it required
 interactionsRequires = {
 	[{"type1", "type2"}] = {
-		["action"] = function(id1, id2, action)
-		end
+		{function(id1, id2, action)
+			-- is this the action?
+			-- process the action
+		end}
 	}
 }
 
@@ -84,6 +89,9 @@ local function interactWorker()
 	while(true) do
 		local key, val = interactionsLinda:receive(nil, id)
 		-- do the task at hand
+		for k, v in pairs(interactions[{val[1], val[4]}]) do
+			v(val[2], val[5], val[3])
+		end
 		interactionsLinda:send("done", id)
 	end
 end
@@ -122,6 +130,9 @@ local function inactionWorker()
 	while(true) do
 		local key, val = inactionsLinda:receive(nil, id)
 		-- do the task at hand
+		for k, v in pairs(inactionsRequires[1]) do
+			v[val[3]](val[2], val[4], val[5])
+		end
 		inactionsLinda:send("done", id)
 	end
 end

@@ -21,7 +21,7 @@ class AssetManagerStore {
 			}
 		}
 		
-		this(string[] directories...){
+		this(string[] directories...) {
 			this.directories = directories;
 			foreach (i, name; assetNames) {
 				values[name] = cast(ubyte[])*assetValues[i];
@@ -32,7 +32,7 @@ class AssetManagerStore {
 		this() {
 		}
 
-		this(string[] directories...){
+		this(string[] directories...) {
 			this.directories = directories;
 			loadAll();
 		}
@@ -114,17 +114,15 @@ class AssetManagerStore {
 			}
 		}
 	}
-
-	private {
-		void loadFile(string file, string filename) {
-			if (isFile(file) && exists(file)) {
-				ubyte[] ret;
-				foreach(b; cast(ubyte[]) read(file)) {
-					ret ~= b;
-				}
-				values[filename] = ret;
-		    }
-		}
+	
+	void loadFile(string file, string filename) {
+		if (isFile(file) && exists(file)) {
+			ubyte[] ret;
+			foreach(b; cast(ubyte[]) read(file)) {
+				ret ~= b;
+			}
+			values[filename] = ret;
+	    }
 	}
 }
 

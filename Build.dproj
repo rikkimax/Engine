@@ -12,6 +12,7 @@
     <DependentProjectIds>
       <DependentProjectIds>
         <String>{759AE620-EF24-4C16-A409-848E27C1B2AF}</String>
+        <String>{ED517C90-64A0-4B9C-A0AB-546078D54100}</String>
       </DependentProjectIds>
     </DependentProjectIds>
     <Compiler>DMD2</Compiler>
@@ -142,9 +143,11 @@
     <Compile Include="Build\ec2d\base.d" />
     <Compile Include="Build\ec2d\database\base.d" />
     <Compile Include="Build\ec2d\database\entity2ddata.d" />
+    <Compile Include="Build\ec2d\assetmanager_allegro.d" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Build\ec2d\" />
     <Folder Include="Build\ec2d\database\" />
+    <Folder Include="Build\ec2d\base\" />
   </ItemGroup>
 </Project>

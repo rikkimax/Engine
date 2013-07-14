@@ -32,6 +32,12 @@ version(Engine_3D) {
 	}
 } else version(Engine_2D) {
 
+	version(Posix) {
+		pragma(lib, "allegro");
+		pragma(lib, "allegro_memfile");
+		pragma(lib, "allegro_image");
+	}
+
 	import ec2d.base;
 	import ec2d.database.base;
 

@@ -148,6 +148,5 @@
   <ItemGroup>
     <Folder Include="Build\ec2d\" />
     <Folder Include="Build\ec2d\database\" />
-    <Folder Include="Build\ec2d\base\" />
   </ItemGroup>
 </Project>

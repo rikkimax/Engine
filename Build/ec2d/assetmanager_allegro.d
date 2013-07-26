@@ -52,6 +52,8 @@ class AssetManagerAllegroStore : AssetManagerStore {
 				case "tga":
 					format = "tga";
 					break;
+				default:
+					break;
 			}
 		}
 		if (filename.length > 4) {
@@ -61,7 +63,7 @@ class AssetManagerAllegroStore : AssetManagerStore {
 		}
 
 		if (format != "") {
-			bitmaps[filename] = al_load_bitmap_f(al_open_memfile(this[filename].ptr, this[filename].length, "r\0"), format ~ "\0");
+			bitmaps[filename] = al_load_bitmap_f(al_open_memfile(this[filename].ptr, this[filename].length, "r\0".ptr), (format ~ "\0").ptr);
 		}
 	}
 }

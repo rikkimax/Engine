@@ -186,6 +186,8 @@ version(Engine_3D) {
 				luaManager.iterateEngines();
 				// next we need to take said models and draw them.
 
+				al_clear_to_color(al_map_rgb(0, 0, 0));
+
 				// foreach entity that is enabled
 				foreach(Entity2DData e; cast(Entity2DData[uint])getEntities()[EntityDataTypes.Entity2DData]) {
 					if (e.enabled) {

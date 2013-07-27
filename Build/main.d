@@ -40,12 +40,6 @@ struct TickRateCounter {
 		ticksSum += ticksPerSec / time;
 		fps = ticksSum / tickCount;
 
-		// keep ticksSum low
-		if (ticksSum > ticksPerSec) {
-			ticksSum -= ticksPerSec;
-			tickCount = 0;
-		}
-
 		// update ticks since change
 		if (fps != lastFps) {
 			ticksSinceFpsChange = 0;
@@ -72,11 +66,13 @@ struct TickRateCounter {
 			}
 		}
 
-		if (ticksSinceFpsChange > 100) {
+		if (ticksSinceFpsChange > 50) {
 			bestFps = fps;
 			waitDiffLevel++;
-			if (waitDiffLevel > 3)
+			if (waitDiffLevel > 3) {
 				waitDiffLevel = 0;
+				decreased = true;
+			}
 		}
 	}
 }
@@ -176,6 +172,8 @@ version(Engine_3D) {
 
 		void gameLoop() {
 			StopWatch sw;
+			StopWatch seconds;
+			seconds.start();
 
 			while(true) {
 				sw.start();
@@ -202,9 +200,18 @@ version(Engine_3D) {
 				tickRate.update(TickDuration.ticksPerSec, sw.peek().length);
 				sw.reset();
 
-				writeln(tickRate.fps, " ", tickRate.wait, " " , tickRate.ticksSinceFpsChange);
+				writeln(tickRate.fps, " ", tickRate.wait, " " , tickRate.ticksSinceFpsChange, " ", tickRate.ticksSum, " ", tickRate.tickCount);
 				al_rest(tickRate.wait);
+
+				// reset ticks every second
+				if (seconds.peek().length > TickDuration.ticksPerSec) {
+					seconds.reset();
+					tickRate.ticksSum = 0;
+					tickRate.tickCount = 0;
+				}
 			}
+
+			seconds.stop();
 		}
 	}
 }

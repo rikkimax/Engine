@@ -130,7 +130,7 @@ local function inactionWorker()
 	while(true) do
 		local key, val = inactionsLinda:receive(nil, id)
 		-- do the task at hand
-		for k, v in pairs(inactionsRequires[1]) do
+		for k, v in pairs(inactions[val[1]]) do
 			v[val[3]](val[2], val[4], val[5])
 		end
 		inactionsLinda:send("done", id)

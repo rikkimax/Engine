@@ -69,10 +69,14 @@ struct TickRateCounter {
 		if (ticksSinceFpsChange > 50) {
 			bestFps = fps;
 			waitDiffLevel++;
-			if (waitDiffLevel > 3) {
+			if (waitDiffLevel > 2) {
 				waitDiffLevel = 0;
 				decreased = true;
 			}
+		}
+
+		debug {
+			writeln("FPS counter and wait debug info: ", tickRate.fps, " ", tickRate.wait, " " , tickRate.ticksSinceFpsChange, " ", tickRate.ticksSum, " ", tickRate.tickCount);
 		}
 	}
 }
@@ -200,7 +204,6 @@ version(Engine_3D) {
 				tickRate.update(TickDuration.ticksPerSec, sw.peek().length);
 				sw.reset();
 
-				writeln(tickRate.fps, " ", tickRate.wait, " " , tickRate.ticksSinceFpsChange, " ", tickRate.ticksSum, " ", tickRate.tickCount);
 				al_rest(tickRate.wait);
 
 				// reset ticks every second

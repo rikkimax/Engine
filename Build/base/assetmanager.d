@@ -128,10 +128,6 @@ class AssetManagerStore {
 
 __gshared AssetManagerStore AssetManager;
 
-static this() {
-	AssetManager = new AssetManagerStore("assets");
-}
-
 private pure string replace(string text, string oldText, string newText, bool caseSensitive = true, bool first = false) {
 	string ret;
 	string tempData;

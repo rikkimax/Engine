@@ -67,9 +67,3 @@ class AssetManagerAllegroStore : AssetManagerStore {
 		}
 	}
 }
-
-__gshared AssetManagerAllegroStore AssetManagerAllegro;
-
-static this() {
-	AssetManagerAllegro = new AssetManagerAllegroStore("assets");
-}

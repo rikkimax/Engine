@@ -24,6 +24,8 @@ class LuaManager {
 		string[] luaFileNames;
 
 		bool isMainThread;
+
+		LuaFunction iterateEnginesFunc;
 	}
 
 	this(lua_State* state, bool mainThread = false) {
@@ -55,7 +57,8 @@ class LuaManager {
 
 	public {
 		void iterateEngines() {
-			luaState.get!LuaFunction("iterateEngines")();
+			if (iterateEnginesFunc is LuaFunction.init) return;
+			iterateEnginesFunc();
 		}
 
 		@property LuaState state() {
@@ -97,7 +100,7 @@ class LuaManager {
 				luaState["Engine_2D"] = false;
 			}
 			
-			luaState["load_base_lua"] = &open;
+			luaState["load_base_lua"] = &openLuaFunc;
 			luaState["changeEntity"] = &changeEntity;
 			luaState["deleteEntity"] = &deleteEntity;
 			luaState["createEntity"] = &createEntity;
@@ -126,6 +129,7 @@ class LuaManager {
 		void basePostLoad() {
 			if (isMainThread) {
 				luaState.get!LuaFunction("basePostLoad")();
+				iterateEnginesFunc = luaState.get!LuaFunction("iterateEngines");
 			}
 		}
 	}
@@ -144,7 +148,7 @@ extern(C) {
 	void createEntity(uint entity, uint id);
 	LuaTypesVariant getEntityData(uint entity, uint id, string valueId);
 
-	int open(lua_State* L) {
+	int openLuaFunc(lua_State* L) {
 		new LuaManager(L);
 		return 0;
 	}

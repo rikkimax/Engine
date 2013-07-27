@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug|x86</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -80,17 +80,8 @@
     <Compile Include="DAllegro5\allegro5\internal\events.d" />
     <Compile Include="DAllegro5\allegro5\al_debug.d" />
     <Compile Include="DAllegro5\allegro5\allegro.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_acodec.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_audio.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_color.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_color_ret.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_font.d" />
     <Compile Include="DAllegro5\allegro5\allegro_image.d" />
     <Compile Include="DAllegro5\allegro5\allegro_memfile.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_native_dialog.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_physfs.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_primitives.d" />
-    <Compile Include="DAllegro5\allegro5\allegro_ttf.d" />
     <Compile Include="DAllegro5\allegro5\altime.d" />
     <Compile Include="DAllegro5\allegro5\base.d" />
     <Compile Include="DAllegro5\allegro5\bitmap.d" />

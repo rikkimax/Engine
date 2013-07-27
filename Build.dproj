@@ -28,7 +28,10 @@
     <Externalconsole>true</Externalconsole>
     <DebugLevel>0</DebugLevel>
     <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
-../bin/Debug/liblanes.a</ExtraCompilerArguments>
+../bin/Debug/liblanes.a
+../libs/allegro/liballegro-static.a
+../libs/allegro/liballegro_image-static.a
+../libs/allegro/liballegro_memfile-static.a</ExtraCompilerArguments>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Debug" />
@@ -49,12 +52,20 @@
     <ObjectsDirectory>obj/Release</ObjectsDirectory>
     <DebugLevel>0</DebugLevel>
     <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
-../bin/Debug/liblanes.a</ExtraCompilerArguments>
+../bin/Debug/liblanes.a
+../libs/allegro/liballegro-static.a
+../libs/allegro/liballegro_image-static.a
+../libs/allegro/liballegro_memfile-static.a</ExtraCompilerArguments>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Release" />
       </CustomCommands>
     </CustomCommands>
+    <VersionIds>
+      <VersionIds>
+        <String>Engine_2D</String>
+      </VersionIds>
+    </VersionIds>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -84,6 +95,9 @@
     <DebugLevel>0</DebugLevel>
     <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
 ../bin/Debug/liblanes.a
+../libs/allegro/liballegro-static.a
+../libs/allegro/liballegro_image-static.a
+../libs/allegro/liballegro_memfile-static.a
 -m64</ExtraCompilerArguments>
     <CustomCommands>
       <CustomCommands>
@@ -106,12 +120,20 @@
     <DebugLevel>0</DebugLevel>
     <ExtraCompilerArguments>/usr/lib/x86_64-linux-gnu/liblua5.1.a
 ../bin/Release/liblanes.a
+../libs/allegro/liballegro-static.a
+../libs/allegro/liballegro_image-static.a
+../libs/allegro/liballegro_memfile-static.a
 -m64</ExtraCompilerArguments>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="cp -R ${ProjectDir}/assets ${SolutionDir}/bin/Release" />
       </CustomCommands>
     </CustomCommands>
+    <VersionIds>
+      <VersionIds>
+        <String>Engine_2D</String>
+      </VersionIds>
+    </VersionIds>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|x64' ">
     <DebugSymbols>true</DebugSymbols>
@@ -132,21 +154,21 @@
     </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Build\base\assetmanager.d" />
-    <Compile Include="Build\dpe\base.d" />
-    <Compile Include="Build\dpe\types.d" />
-    <Compile Include="Build\assets.d" />
     <Compile Include="Build\main.d" />
-    <Compile Include="Build\ec3d\database\base.d" />
-    <Compile Include="Build\ec3d\database\camera.d" />
-    <Compile Include="Build\ec3d\base.d" />
+    <Compile Include="Build\ec2d\assetmanager_allegro.d" />
+    <Compile Include="Build\base\assetmanager.d" />
+    <Compile Include="Build\assets.d" />
     <Compile Include="Build\ec2d\base.d" />
+    <Compile Include="Build\dpe\types.d" />
+    <Compile Include="Build\dpe\base.d" />
     <Compile Include="Build\ec2d\database\base.d" />
     <Compile Include="Build\ec2d\database\entity2ddata.d" />
-    <Compile Include="Build\ec2d\assetmanager_allegro.d" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Build\ec2d\" />
     <Folder Include="Build\ec2d\database\" />
+    <Folder Include="Build\base\" />
+    <Folder Include="Build\dpe\" />
+    <Folder Include="Build\ec3d\database\" />
   </ItemGroup>
 </Project>

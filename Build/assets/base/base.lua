@@ -11,8 +11,8 @@ if DEBUG then print("base=lua start loading") end
 
 iterateEngines = function()
 	if DEBUG then print("base=iterateEngines called") end
-	createEntity(1, 7)
-	changeEntity(1, 7, "x", 1.5)
+	--createEntity(1, 7)
+	--changeEntity(1, 7, "x", 1.5)
 end
 
 loadFilesLogic = function(files)

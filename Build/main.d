@@ -20,11 +20,64 @@ struct TickRateCounter {
 	ulong ticksSum;
 	ushort tickCount;
 	ulong fps;
+	float wait = 0.005;
+	ulong ticksSinceFpsChange = 0;
 
-	void update(ulong time) {
+	private {
+		ulong lastFps;
+		ulong bestFps;
+		float bestWait;
+		bool decreased = true;
+		ubyte waitDiffLevel = 0;
+		float[] waitDiff = [0.001, 0.0001, 0.00001];
+	}
+
+	void update(ulong ticksPerSec, ulong time) {
+		lastFps = fps;
+
+		// update fps
 		tickCount++;
-		ticksSum += time;
+		ticksSum += ticksPerSec / time;
 		fps = ticksSum / tickCount;
+
+		// keep ticksSum low
+		if (ticksSum > ticksPerSec) {
+			ticksSum -= ticksPerSec;
+			tickCount = 0;
+		}
+
+		// update ticks since change
+		if (fps != lastFps) {
+			ticksSinceFpsChange = 0;
+		} else {
+			ticksSinceFpsChange++;
+		}
+
+		// update our best fps
+		if (fps > bestFps) {
+			bestFps = fps;
+			bestWait = wait;
+			if (decreased) {
+				wait -= waitDiff[waitDiffLevel];
+			} else {
+				wait += waitDiff[waitDiffLevel];
+			}
+		} else {
+			if (decreased) {
+				wait += waitDiff[waitDiffLevel];
+				decreased = false;
+			} else {
+				wait -= waitDiff[waitDiffLevel];
+				decreased = true;
+			}
+		}
+
+		if (ticksSinceFpsChange > 100) {
+			bestFps = fps;
+			waitDiffLevel++;
+			if (waitDiffLevel > 3)
+				waitDiffLevel = 0;
+		}
 	}
 }
 TickRateCounter tickRate;
@@ -146,15 +199,11 @@ version(Engine_3D) {
 				al_flip_display();
 				sw.stop();
 
-				tickRate.update(TickDuration.ticksPerSec / sw.peek().length);
-				if (tickRate.ticksSum > TickDuration.ticksPerSec) {
-					tickRate.ticksSum -= TickDuration.ticksPerSec;
-					tickRate.tickCount = 0;
-				}
+				tickRate.update(TickDuration.ticksPerSec, sw.peek().length);
 				sw.reset();
 
-				writeln(tickRate.fps);
-				al_rest(0.005);
+				writeln(tickRate.fps, " ", tickRate.wait, " " , tickRate.ticksSinceFpsChange);
+				al_rest(tickRate.wait);
 			}
 		}
 	}

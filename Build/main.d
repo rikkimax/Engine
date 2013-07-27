@@ -147,6 +147,10 @@ version(Engine_3D) {
 				sw.stop();
 
 				tickRate.update(TickDuration.ticksPerSec / sw.peek().length);
+				if (tickRate.ticksSum > TickDuration.ticksPerSec) {
+					tickRate.ticksSum -= TickDuration.ticksPerSec;
+					tickRate.tickCount = 0;
+				}
 				sw.reset();
 
 				writeln(tickRate.fps);

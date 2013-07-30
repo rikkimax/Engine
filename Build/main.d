@@ -129,7 +129,10 @@ version(Engine_3D) {
 			import core.runtime;
 			extern(C) void sig_handler(int signo) nothrow {
 				try {
+					writeln();
+					writeln("Entity state: ", getEntities());
 					writeln("\nBest fps is ", tickRate.bestFps, " and wait ", tickRate.bestWait);
+					writeln();
 					Runtime.terminate();
 				} catch(Exception e){}
 			}
@@ -141,14 +144,15 @@ version(Engine_3D) {
 		setupGame();
 		gameLoop();
 
-		/*AssetManagerStore am = new AssetManagerStore();
+		/*AssetManager = new AssetManagerStore("assets");
 
 		LuaManager ldf = new LuaManager(true);
 		ldf.iterateEngines();
 
 		writeln("Press enter when lua operations is finished");
 		readln();
-		writeln("entities: ", getEntities());*/
+		writeln("entities: ", getEntities());
+		writeln(ec2d.database.base.getSpareEntityId(1));*/
 	}
 
 	extern(C) {

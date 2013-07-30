@@ -58,5 +58,22 @@ version(Engine_2D) {
 				return LuaTypesVariant(Nil.init);
 			}
 		}
+
+		uint[] getEntityIds(uint entity) {
+			if (entities.get(entity, null) !is null)
+				return entities.get(entity, null).keys;
+			else
+				return [];
+		}
+
+		LuaTypesVariant getSpareEntityId(uint entity) {
+			if (entities.get(entity, null) !is null)
+				if (entities[entity].length > 0)
+					return LuaTypesVariant(entities[entity].keys[$]);
+				else
+					return LuaTypesVariant(1);
+			else
+				return LuaTypesVariant(Nil.init);
+		}
 	}
 }

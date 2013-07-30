@@ -147,6 +147,8 @@ extern(C) {
 	void deleteEntity(uint entity, uint id);
 	void createEntity(uint entity, uint id);
 	LuaTypesVariant getEntityData(uint entity, uint id, string valueId);
+	uint[] getEntityIds(uint entity);
+	LuaTypesVariant getSpareEntityId(uint entity);
 
 	int openLuaFunc(lua_State* L) {
 		new LuaManager(L);

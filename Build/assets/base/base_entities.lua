@@ -49,7 +49,6 @@ local function actionWorker(id)
 	while(true) do
 		local key, val = actionsLinda:receive(nil, id)
 		if (val[1] == "UPDATE") then
-			print("update")
 			-- update our values
 			actions = val[2]
 		else

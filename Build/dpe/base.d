@@ -105,6 +105,8 @@ class LuaManager {
 			luaState["deleteEntity"] = &deleteEntity;
 			luaState["createEntity"] = &createEntity;
 			luaState["getEntityData"] = &getEntityData;
+			luaState["getEntityIds"] = &getEntityIds;
+			luaState["getSpareEntityId"] = &getSpareEntityId;
 			luaState["runLuaFile"] = &runLuaFile;
 			
 			runLuaFile("base_lua");

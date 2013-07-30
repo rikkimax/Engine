@@ -28,6 +28,7 @@ struct TickRateCounter {
 		ulong bestFps;
 		float bestWait;
 		bool decreased = true;
+		ushort decreasedAttracts = false;
 		ubyte waitDiffLevel = 0;
 		float[] waitDiff = [0.001, 0.0001, 0.00001];
 	}
@@ -59,9 +60,17 @@ struct TickRateCounter {
 		} else {
 			if (decreased) {
 				wait += waitDiff[waitDiffLevel];
+				if (decreased)
+					decreasedAttracts++;
+				else
+					decreasedAttracts = 0;
 				decreased = false;
 			} else {
 				wait -= waitDiff[waitDiffLevel];
+				if (!decreased)
+					decreasedAttracts++;
+				else
+					decreasedAttracts = 0;
 				decreased = true;
 			}
 		}
@@ -69,6 +78,19 @@ struct TickRateCounter {
 		if (ticksSinceFpsChange > 50) {
 			bestFps = fps;
 			waitDiffLevel++;
+			if (waitDiffLevel > 2) {
+				waitDiffLevel = 0;
+				if (!decreased)
+					decreasedAttracts++;
+				else
+					decreasedAttracts = 0;
+				decreased = true;
+			}
+		}
+
+		if (decreasedAttracts > 150) {
+			waitDiffLevel++;
+			decreasedAttracts = 0;
 			if (waitDiffLevel > 2) {
 				waitDiffLevel = 0;
 				decreased = true;

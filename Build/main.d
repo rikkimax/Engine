@@ -124,6 +124,18 @@ version(Engine_3D) {
 
 
 	void main() {
+		debug {
+			import core.stdc.signal;
+			import core.runtime;
+			extern(C) void sig_handler(int signo) nothrow {
+				try {
+					writeln("\nBest fps is ", tickRate.bestFps, " and wait ", tickRate.bestWait);
+					Runtime.terminate();
+				} catch(Exception e){}
+			}
+			signal(SIGINT, &sig_handler);
+		}
+
 		register(GraphicsThreadName, thisTid);
 
 		setupGame();

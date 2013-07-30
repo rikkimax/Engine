@@ -13,5 +13,8 @@ if isMainThread then
 	print("entry=y 2", e["y"])
 	e:delete()
 	
-
+	-- remember to push all changes to the entity models to the threads
+	-- before using them
+	pushVarsToThreads()
+	act("TestEntity", 7, "saying hi")
 end

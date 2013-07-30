@@ -31,22 +31,32 @@ local function actionController()
 	-- controller for actions
 	while(true) do
 		local key, val = actionsLinda:receive(nil, "controller")
-		local key2, val2 = actionsLinda:receive(nil, "done")
-		-- do we need to do some modifications of the data given to the controller?
-		-- or get more info?
-		actionsLinda:send(val2, val)
+		if (val[1] == "UPDATE") then
+			-- update our values
+			actions = val[2]
+		else
+			local key2, val2 = actionsLinda:receive(nil, "done")
+			-- do we need to do some modifications of the data given to the controller?
+			-- or get more info?
+			actionsLinda:send(val2, val)
+		end
 	end
 end
 
 local function actionWorker(id)
 	-- a worker for actions
-	id = tostring(id)
 	actionsLinda:send("done", id)
 	while(true) do
 		local key, val = actionsLinda:receive(nil, id)
-		-- do the task at hand
-		for k, v in pairs(actions[val[1]]) do
-			v(val[2], val[3])
+		if (val[1] == "UPDATE") then
+			print("update")
+			-- update our values
+			actions = val[2]
+		else
+			-- do the task at hand
+			for k, v in pairs(actions[val[1]]) do
+				v(val[2], val[3])
+			end
 		end
 		actionsLinda:send("done", id)
 	end
@@ -76,21 +86,29 @@ local function interactController()
 	-- controller for interactions
 	while(true) do
 		local key, val = interactionsLinda:receive(nil, "controller")
-		local key2, val2 = interactionsLinda:receive(nil, "done")
-		-- do we need to do some modifications of the data given to the controller?
-		-- or get more info?
-		interactionsLinda:send(val2, val)
+		if (val[1] == "UPDATE") then
+			interactions = val[3]
+		else
+			local key2, val2 = interactionsLinda:receive(nil, "done")
+			-- do we need to do some modifications of the data given to the controller?
+			-- or get more info?
+			interactionsLinda:send(val2, val)
+		end
 	end
 end
 
-local function interactWorker()
+local function interactWorker(id)
 	-- a worker for actions
 	interactionsLinda:send("done", id)
 	while(true) do
 		local key, val = interactionsLinda:receive(nil, id)
-		-- do the task at hand
-		for k, v in pairs(interactions[{val[1], val[4]}]) do
-			v(val[2], val[5], val[3])
+		if (val[1] == "UPDATE") then
+			interactions = val[3]
+		else
+			-- do the task at hand
+			for k, v in pairs(interactions[{val[1], val[4]}]) do
+				v(val[2], val[5], val[3])
+			end
 		end
 		interactionsLinda:send("done", id)
 	end
@@ -117,27 +135,51 @@ local function inactionController()
 	-- controller for inactions
 	while(true) do
 		local key, val = inactionsLinda:receive(nil, "controller")
-		local key2, val2 = inactionsLinda:receive(nil, "done")
-		-- do we need to do some modifications of the data given to the controller?
-		-- or get more info?
-		inactionsLinda:send(val2, val)
+		if (val[1] == "UPDATE") then
+			inactions = val[3]
+		else
+			local key2, val2 = inactionsLinda:receive(nil, "done")
+			-- do we need to do some modifications of the data given to the controller?
+			-- or get more info?
+			inactionsLinda:send(val2, val)
+		end
 	end
 end
 
-local function inactionWorker()
+local function inactionWorker(id)
 	-- a worker for actions
 	inactionsLinda:send("done", id)
 	while(true) do
 		local key, val = inactionsLinda:receive(nil, id)
-		-- do the task at hand
-		for k, v in pairs(inactions[val[1]]) do
-			v[val[3]](val[2], val[4], val[5])
+		if (val[1] == "UPDATE") then
+			inactions = val[3]
+		else
+			-- do the task at hand
+			for k, v in pairs(inactions[val[1]]) do
+				v[val[3]](val[2], val[4], val[5])
+			end
 		end
 		inactionsLinda:send("done", id)
 	end
 end
 
 if isMainThread then
+	function pushVarsToThreads()
+		local tbl = {
+			"UPDATE", actions, interactions, inactions
+		}
+		actionsLinda:send("controller", tbl)
+		interactionsLinda:send("controller", tbl)
+		inactionsLinda:send("controller", tbl)
+		
+		for i = 1, 100 do
+			actionsLinda:send(tostring(i), tbl)
+			interactionsLinda:send(tostring(i), tbl)
+			inactionsLinda:send(tostring(i), tbl)
+		end
+	end
+
+
 	-- somethings are just not copied to the new threads
 	-- place them into here
 	local globals = {
@@ -158,12 +200,10 @@ if isMainThread then
 	for i = 1, 100 do
 		-- generate all the workers
 		-- for each linda
-		lanes.gen("*", globals, actionWorker)(i)
-		lanes.gen("*", globals, interactWorker)(i)
-		lanes.gen("*", globals, inactionWorker)(i)
+		lanes.gen("*", globals, actionWorker)(tostring(i))
+		lanes.gen("*", globals, interactWorker)(tostring(i))
+		lanes.gen("*", globals, inactionWorker)(tostring(i))
 	end
-
-	act("TestEntity", 7, "saying hi")
 end
 
 -- remember to copy the lindas to make it visible in the new thread
